@@ -1,0 +1,12 @@
+.chat-message-list{
+	list-style: none;
+	padding: 2rem 1rem;
+	margin: 0;
+	li{
+		display: table;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		background-color: white;
+		border: 2px solid #bbb;
+	}
+}

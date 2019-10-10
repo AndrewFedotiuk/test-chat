@@ -1,0 +1,31 @@
+$button-color: #3681F3;
+$button-text-color: white;
+$side-padding: 1.45rem;
+$base-form-font-size: 1.3rem;
+
+.chat-form{
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	input{
+		max-width: 80%;
+		width: 80%;
+		padding: 0 $side-padding/2;
+		font-size: $base-form-font-size;
+		&.chat-form__nickname{
+			width: 30%;
+		}
+	}
+	button{
+		display: inline-block;
+		background-color: $button-color;
+		color: $button-text-color;
+		text-align: center;
+		vertical-align: middle;
+		border: 1px solid transparent;
+		padding: .375rem $side-padding;
+		font-size: $base-form-font-size;
+		line-height: 1.5;
+	}
+}
