@@ -10,3 +10,12 @@
 		border: 2px solid #bbb;
 	}
 }
+
+.center-absolute{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	font-size: 3rem;
+}
