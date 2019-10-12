@@ -11,8 +11,6 @@ const ChatMessageListItem = ({userName, message})=>{
 };
 
 const ChatMessageList = ({messages, loading, errors}) => {
-	// console.log(messages, loading, errors);
-
 	if(loading){
 		return (
 			<div className='center-absolute'>loading...</div>

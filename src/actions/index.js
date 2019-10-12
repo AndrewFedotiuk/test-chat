@@ -18,8 +18,31 @@ const messagesError = (error) => {
 	};
 };
 
+const socketPending = () => {
+	return {
+		type: 'SOCKET_PENDING',
+	};
+};
+
+const socketConnected = () => {
+	return {
+		type: 'SOCKET_CONNECTED',
+		payload: true
+	};
+};
+
+const socketConnectionFailure = (error) => {
+	return {
+		type: 'SOCKET_CONNECTION_FAILURE',
+		payload: error
+	};
+};
+
 export{
 	messagesLoaded,
 	messagesRequested,
-	messagesError
+	messagesError,
+	socketPending,
+	socketConnected,
+	socketConnectionFailure
 }

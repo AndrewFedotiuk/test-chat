@@ -31,7 +31,7 @@ const updateMessageList = (state, action)=>{
 				error: action.payload
 			};
 		default:
-			return state.messages
+			return state.updateMessageList
 	}
 };
 

@@ -1,7 +1,9 @@
+import "regenerator-runtime/runtime";
 import {createStore, applyMiddleware} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 import reducer from './reducers';
 import createSagaMiddleware from 'redux-saga';
+import {initConnection} from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,5 +17,7 @@ const store = createStore(reducer,
 			sagaMiddleware
 		),
 	));
+
+sagaMiddleware.run(initConnection);
 
 export default store;

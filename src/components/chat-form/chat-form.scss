@@ -1,7 +1,10 @@
 $button-color: #3681F3;
 $button-text-color: white;
+$error-color: #ff4c31;
 $side-padding: 1.45rem;
 $base-form-font-size: 1.3rem;
+
+
 
 .chat-form{
 	display: flex;
@@ -28,4 +31,17 @@ $base-form-font-size: 1.3rem;
 		font-size: $base-form-font-size;
 		line-height: 1.5;
 	}
+	&.error{
+		input{
+			border-color: $error-color;
+		}
+	}
+}
+
+.error-container{
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
+	transform: translateX(-50%);
+	color: $error-color;
 }
