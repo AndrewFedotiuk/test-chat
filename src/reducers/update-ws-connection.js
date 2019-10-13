@@ -1,3 +1,5 @@
+import types from '../actions/constants';
+
 const updateWsConnection = (state, action)=>{
 	if (state === undefined) {
 		return {
@@ -8,19 +10,19 @@ const updateWsConnection = (state, action)=>{
 	}
 
 	switch (action.type) {
-		case 'SOCKET_PENDING':
+		case types.SOCKET_PENDING:
 			return {
 				sockedConnected: false,
 				loading: true,
 				error: null
 			};
-		case 'SOCKET_CONNECTED':
+		case types.SOCKET_CONNECTED:
 			return {
 				sockedConnected: action.payload,
 				loading: false,
 				error: null
 			};
-		case 'SOCKET_CONNECTION_FAILURE':
+		case types.SOCKET_CONNECTION_FAILURE:
 			return {
 				sockedConnected: false,
 				loading: false,

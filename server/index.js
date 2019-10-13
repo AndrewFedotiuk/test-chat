@@ -7,13 +7,14 @@ io.on('connection', socket => {
 	console.log('a user connected');
 
 	Chat.getLastMessages()
-		.then((data)=>{
+		.then((data) => {
 			io.emit('initChat', data);
 		});
 
-	socket.on('sendMessage', (data) => {
-		console.log(data);
-		// io.emit('submitMessage', 'polucheno');
+	socket.on('sendMessage', async (data) => {
+		await Chat.addNewMessage(data);
+		const response = await Chat.getLastMessages();
+		io.emit('messageAdded', response);
 	});
 
 	socket.on('disconnect', () => {

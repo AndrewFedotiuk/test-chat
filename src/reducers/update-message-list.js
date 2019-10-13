@@ -1,3 +1,5 @@
+import types from '../actions/constants';
+
 const updateMessageList = (state, action)=>{
 	if (state === undefined) {
 		return {
@@ -7,14 +9,14 @@ const updateMessageList = (state, action)=>{
 		}
 	}
 	switch (action.type) {
-		case 'INIT_MESSAGE_SUCCESS':
+		case types.GET_MESSAGES_SUCCESS:
 			return {
 				messages: action.payload,
 				loading: false,
 				error: null
 			};
 
-		case 'FETCH_MESSAGE_REQUEST':
+		case types.FETCH_MESSAGE_REQUEST:
 			return {
 				messages: state.updateMessageList.messages,
 				loading: true,

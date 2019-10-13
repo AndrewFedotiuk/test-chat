@@ -1,15 +1,16 @@
 import {take, call, put, takeEvery} from 'redux-saga/effects';
 import {initSocket, createSocketChannel} from './helpers/ws-service';
+import types from './actions/constants';
 
 export function* initConnection() {
-	yield takeEvery('SOCKET_PENDING', watchOnInit);
+	yield takeEvery(types.SOCKET_PENDING, watchOnInit);
 }
 
 export function* watchOnInit() {
 	const socket = yield call(initSocket);
 	const chanel = yield call(createSocketChannel, socket);
 
-	yield takeEvery('FETCH_MESSAGE_REQUEST', sendMessage.bind(socket));
+	yield takeEvery(types.FETCH_MESSAGE_REQUEST, sendMessage.bind(socket));
 
 	while (true) {
 		try {

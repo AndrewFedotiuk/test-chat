@@ -3,26 +3,26 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ChatForm from "../chat-form";
 import ChatMessageList from '../chat-message-list';
-import {socketPending, messagesRequest} from '../../actions';
+import {socketPending, fetchMessageRequest} from '../../actions';
 
 const mapDispatchToProps = (dispatch, {updateWsConnection, updateMessageList}) => {
-	return bindActionCreators({socketPending, messagesRequest}, dispatch);
+	return bindActionCreators({socketPending, fetchMessageRequest}, dispatch);
 };
 
 const getInputsValues = (e) => {
-	console.log(e);
 	return {
 		userName: e.target.elements.userName.value.trim(),
 		message: e.target.elements.message.value.trim(),
 	}
 };
 
-const ChatWrapper = ({socketPending, messagesRequest}) => {
+const ChatWrapper = ({socketPending, fetchMessageRequest}) => {
 	const onSubmit = (e) => {
 		e.persist();
 		e.preventDefault();
 		const values = getInputsValues(e);
-		messagesRequest(values);
+		fetchMessageRequest(values);
+		e.target.elements.message.value = '';
 	};
 
 	useEffect(() => {

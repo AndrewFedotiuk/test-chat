@@ -8,9 +8,9 @@ class Chat {
 		return messages;
 	}
 
-	async addNewMessage(username, message) {
+	async addNewMessage({userName, message}) {
 		const messages = await Chat.parseModel();
-		messages.push(toJSON(username, message));
+		messages.push(Chat.toJSON(userName, message, uuid()));
 
 		return new Promise((resolve, reject) => {
 			fs.writeFile(
@@ -20,17 +20,18 @@ class Chat {
 					if(err){
 						reject(err);
 					}else{
-						resolve()
+						resolve();
 					}
 				}
 			)
 		})
 	}
 
-	static toJSON(username, message) {
+	static toJSON(userName, message, id) {
 		return {
-			username,
-			message
+			userName,
+			message,
+			id
 		}
 	}
 

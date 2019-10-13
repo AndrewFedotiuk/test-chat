@@ -32,13 +32,12 @@ const ChatMessageList = ({messages, loading, errors}) => {
 	return (
 		<ul className='chat-message-list'>
 			{
-				messages.map((message, index) => {
+				messages.map(({userName, message, id}) => {
 					return (
-						<li>
+						<li key={id}>
 							<ChatMessageListItem
-								key={index}
-								userName={message.userName}
-								message={message.message}/>
+								userName={userName}
+								message={message}/>
 						</li>
 					)
 				})

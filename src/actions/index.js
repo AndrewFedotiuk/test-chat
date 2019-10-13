@@ -1,48 +1,50 @@
-const messagesLoaded = (newMessagess) => {
+import types from './constants';
+
+const getMessagesSuccess = (newMessages) => {
 	return {
-		type: 'INIT_MESSAGE_SUCCESS',
-		payload: newMessagess
+		type: types.GET_MESSAGES_SUCCESS,
+		payload: newMessages
 	};
 };
 
-const messagesRequest = (newMessage) => {
+const fetchMessageRequest = (newMessage) => {
 	return {
-		type: 'FETCH_MESSAGE_REQUEST',
+		type: types.FETCH_MESSAGE_REQUEST,
 		payload: newMessage
 	};
 };
 
-const messagesError = (error) => (
+const fetchMessageFailure = (error) => (
 	{
-		type: 'FETCH_MESSAGE_FAILURE',
+		type: types.FETCH_MESSAGE_FAILURE,
 		payload: error
 	}
 );
 
 const socketPending = () => {
 	return {
-		type: 'SOCKET_PENDING',
+		type: types.SOCKET_PENDING,
 	};
 };
 
 const socketConnected = () => {
 	return {
-		type: 'SOCKET_CONNECTED',
+		type: types.SOCKET_CONNECTED,
 		payload: true
 	};
 };
 
 const socketConnectionFailure = (error) => {
 	return {
-		type: 'SOCKET_CONNECTION_FAILURE',
+		type: types.SOCKET_CONNECTION_FAILURE,
 		payload: error
 	};
 };
 
 export{
-	messagesLoaded,
-	messagesRequest,
-	messagesError,
+	getMessagesSuccess,
+	fetchMessageRequest,
+	fetchMessageFailure,
 	socketPending,
 	socketConnected,
 	socketConnectionFailure
