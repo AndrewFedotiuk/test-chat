@@ -5,7 +5,7 @@ const uuid = require('uuid');
 class Chat {
 	async getLastMessages() {
 		const messages = await Chat.parseModel();
-		return messages;
+		return messages.slice(1).slice(-10);
 	}
 
 	async addNewMessage({userName, message}) {

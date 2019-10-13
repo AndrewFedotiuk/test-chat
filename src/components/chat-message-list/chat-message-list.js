@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 
 const ChatMessageListItem = ({userName, message}) => {
@@ -10,7 +10,11 @@ const ChatMessageListItem = ({userName, message}) => {
 	)
 };
 
-const ChatMessageList = ({messages, loading, errors}) => {
+const ChatMessageList = ({messages, loading, errors, chatSection}) => {
+	useEffect(()=>{
+		chatSection.current.scrollTop = chatSection.current.scrollHeight;
+	});
+
 	if (loading) {
 		return (
 			<div className='center-absolute'>loading...</div>

@@ -17,6 +17,8 @@ const getInputsValues = (e) => {
 };
 
 const ChatWrapper = ({socketPending, fetchMessageRequest}) => {
+	let chatSection = React.createRef();
+
 	const onSubmit = (e) => {
 		e.persist();
 		e.preventDefault();
@@ -30,8 +32,8 @@ const ChatWrapper = ({socketPending, fetchMessageRequest}) => {
 	});
 
 	return (
-		<section className='chat-wrapper'>
-			<ChatMessageList/>
+		<section className='chat-wrapper' ref={chatSection}>
+			<ChatMessageList chatSection={chatSection}/>
 			<ChatForm onSubmit={onSubmit}/>
 		</section>
 	)
