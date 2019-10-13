@@ -1,5 +1,4 @@
 import {take, call, put, takeEvery} from 'redux-saga/effects';
-import {socketPending} from './actions';
 import {initSocket, createSocketChannel} from './helpers/ws-service';
 
 export function* initConnection() {
@@ -10,6 +9,8 @@ export function* watchOnInit() {
 	const socket = yield call(initSocket);
 	const chanel = yield call(createSocketChannel, socket);
 
+	yield takeEvery('FETCH_MESSAGE_REQUEST', sendMessage.bind(socket));
+
 	while (true) {
 		try {
 			const action = yield take(chanel);
@@ -18,4 +19,8 @@ export function* watchOnInit() {
 			console.error('socket error:', err)
 		}
 	}
+}
+
+function* sendMessage(action) {
+	this.emit('sendMessage', action.payload);
 }

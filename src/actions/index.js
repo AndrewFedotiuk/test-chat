@@ -1,22 +1,23 @@
-const messagesLoaded = (newBooks) => {
+const messagesLoaded = (newMessagess) => {
 	return {
-		type: 'FETCH_MESSAGE_SUCCESS',
-		payload: newBooks
+		type: 'INIT_MESSAGE_SUCCESS',
+		payload: newMessagess
 	};
 };
 
-const messagesRequested = () => {
+const messagesRequest = (newMessage) => {
 	return {
-		type: 'FETCH_MESSAGE_REQUESTED',
+		type: 'FETCH_MESSAGE_REQUEST',
+		payload: newMessage
 	};
 };
 
-const messagesError = (error) => {
-	return {
+const messagesError = (error) => (
+	{
 		type: 'FETCH_MESSAGE_FAILURE',
 		payload: error
-	};
-};
+	}
+);
 
 const socketPending = () => {
 	return {
@@ -40,7 +41,7 @@ const socketConnectionFailure = (error) => {
 
 export{
 	messagesLoaded,
-	messagesRequested,
+	messagesRequest,
 	messagesError,
 	socketPending,
 	socketConnected,

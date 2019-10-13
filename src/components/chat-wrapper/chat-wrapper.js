@@ -1,53 +1,40 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ChatForm from "../chat-form";
 import ChatMessageList from '../chat-message-list';
-import {socketPending} from '../../actions';
+import {socketPending, messagesRequest} from '../../actions';
 
-const mapDispatchToProps = (dispatch, {updateWsConnection}) => {
-	return bindActionCreators({socketPending}, dispatch)
+const mapDispatchToProps = (dispatch, {updateWsConnection, updateMessageList}) => {
+	return bindActionCreators({socketPending, messagesRequest}, dispatch);
 };
 
 const getInputsValues = (e) => {
-	return Array.prototype.slice.call(e.target)
-		.filter(el => el.name)
-		.reduce(function (form, el) {
-			form.push(el.value.trim());
-			return form;
-		}, [])
+	console.log(e);
+	return {
+		userName: e.target.elements.userName.value.trim(),
+		message: e.target.elements.message.value.trim(),
+	}
 };
 
-class ChatWrapper extends React.Component {
-	state = {
-		validate: false
-	};
-
-	onSubmit = (e) => {
+const ChatWrapper = ({socketPending, messagesRequest}) => {
+	const onSubmit = (e) => {
 		e.persist();
 		e.preventDefault();
 		const values = getInputsValues(e);
-		values.forEach(
-			val => val.length === 0 ?
-				this.setState({ validate: true}) :
-				this.setState({ validate: false}));
-
-		// this.state.socket.emit('submitMessage', values);
+		messagesRequest(values);
 	};
 
-	componentDidMount() {
-		const {socketPending} = this.props;
+	useEffect(() => {
 		socketPending();
-	}
+	});
 
-	render() {
-		return (
-			<section className='chat-wrapper'>
-				<ChatMessageList/>
-				<ChatForm onSubmit={this.onSubmit} validate={this.state.validate}/>
-			</section>
-		)
-	}
-}
+	return (
+		<section className='chat-wrapper'>
+			<ChatMessageList/>
+			<ChatForm onSubmit={onSubmit}/>
+		</section>
+	)
+};
 
 export default connect(null, mapDispatchToProps)(ChatWrapper);

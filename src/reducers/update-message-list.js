@@ -1,29 +1,26 @@
 const updateMessageList = (state, action)=>{
 	if (state === undefined) {
 		return {
-			messages: [
-				{
-					userName: 'test',
-					message: 'test text'
-				}
-			],
+			messages: [],
 			loading: true,
 			error: null,
 		}
 	}
 	switch (action.type) {
-		case 'FETCH_MESSAGE_REQUESTED':
-			return {
-				messages: [],
-				loading: true,
-				error: null
-			};
-		case 'FETCH_MESSAGE_SUCCESS':
+		case 'INIT_MESSAGE_SUCCESS':
 			return {
 				messages: action.payload,
 				loading: false,
 				error: null
 			};
+
+		case 'FETCH_MESSAGE_REQUEST':
+			return {
+				messages: state.updateMessageList.messages,
+				loading: true,
+				error: null
+			};
+
 		case 'FETCH_MESSAGE_FAILURE':
 			return {
 				messages: [],

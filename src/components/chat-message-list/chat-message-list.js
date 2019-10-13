@@ -1,34 +1,45 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-const ChatMessageListItem = ({userName, message})=>{
-	return(
-		<li>
+const ChatMessageListItem = ({userName, message}) => {
+	return (
+		<>
 			<p><b>{userName}</b></p>
 			<p>{message}</p>
-		</li>
-		)
+		</>
+	)
 };
 
 const ChatMessageList = ({messages, loading, errors}) => {
-	if(loading){
+	if (loading) {
 		return (
 			<div className='center-absolute'>loading...</div>
 		)
 	}
 
-	if(errors){
+	if (errors) {
 		return (
 			<div className='center-absolute'>{errors}</div>
+		)
+	}
+
+	if (messages.length === 0) {
+		return (
+			<div className='center-absolute'>No messages</div>
 		)
 	}
 
 	return (
 		<ul className='chat-message-list'>
 			{
-				messages.map((message, index)=>{
-					return(
-						<ChatMessageListItem key={index} userName={message.userName} message={message.message}/>
+				messages.map((message, index) => {
+					return (
+						<li>
+							<ChatMessageListItem
+								key={index}
+								userName={message.userName}
+								message={message.message}/>
+						</li>
 					)
 				})
 			}
@@ -36,8 +47,8 @@ const ChatMessageList = ({messages, loading, errors}) => {
 	)
 };
 
-const mapStateToProps = ({updateMessageList:{messages, loading, errors}}) => {
-	return{messages, loading, errors};
+const mapStateToProps = ({updateMessageList: {messages, loading, errors}}) => {
+	return {messages, loading, errors};
 };
 
 export default connect(mapStateToProps)(ChatMessageList);

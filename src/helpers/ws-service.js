@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import {eventChannel} from 'redux-saga';
-import {socketConnected, socketConnectionFailure} from '../actions';
+import {socketConnected, socketConnectionFailure, messagesLoaded} from '../actions';
 
 export const initSocket = ()=> io('http://localhost:3500', {transports: ['websocket'], reconnection: true});
 
@@ -17,9 +17,15 @@ export function createSocketChannel(socket) {
 			console.log('disconnected');
 		};
 
+		const initChatHandler = (e)=>{
+			emit(messagesLoaded(e))
+		};
+
 		socket.on('connect', connectHandler);
 
 		socket.on('disconnect', disconnectHandler);
+
+		socket.on('initChat', initChatHandler);
 
 		return ()=> socket.off('connect', connectHandler);
 	})
