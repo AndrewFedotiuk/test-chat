@@ -1,8 +1,6 @@
 import React from 'react';
 import ChatWrapper from '../chat-wrapper';
 
-const App = () => {
-	return <ChatWrapper/>
-};
+const App = () => <ChatWrapper/>;
 
 export default App;

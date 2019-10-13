@@ -1,17 +1,9 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
-
-const ChatMessageListItem = ({userName, message}) => {
-	return (
-		<>
-			<p><b>{userName}</b></p>
-			<p>{message}</p>
-		</>
-	)
-};
+import ChatMessageListItem from './helper-chat-message-list-item';
 
 const ChatMessageList = ({messages, loading, errors, chatSection}) => {
-	useEffect(()=>{
+	useEffect(() => {
 		chatSection.current.scrollTop = chatSection.current.scrollHeight;
 	});
 
@@ -50,8 +42,8 @@ const ChatMessageList = ({messages, loading, errors, chatSection}) => {
 	)
 };
 
-const mapStateToProps = ({updateMessageList: {messages, loading, errors}}) => {
-	return {messages, loading, errors};
-};
+const mapStateToProps = ({updateMessageList: {messages, loading, errors}}) => (
+	{messages, loading, errors}
+);
 
 export default connect(mapStateToProps)(ChatMessageList);

@@ -16,7 +16,7 @@ const updateMessageList = (state, action)=>{
 				error: null
 			};
 
-		case types.FETCH_MESSAGE_REQUEST:
+		case types.Socket_MESSAGE_REQUEST:
 			return {
 				messages: state.updateMessageList.messages,
 				loading: true,

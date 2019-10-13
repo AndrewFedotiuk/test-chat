@@ -10,7 +10,7 @@ export function* watchOnInit() {
 	const socket = yield call(initSocket);
 	const chanel = yield call(createSocketChannel, socket);
 
-	yield takeEvery(types.FETCH_MESSAGE_REQUEST, sendMessage.bind(socket));
+	yield takeEvery(types.SOCKET_MESSAGE_REQUEST, sendMessage.bind(socket));
 
 	while (true) {
 		try {

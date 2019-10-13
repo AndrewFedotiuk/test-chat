@@ -5,16 +5,14 @@ import ChatForm from "../chat-form";
 import ChatMessageList from '../chat-message-list';
 import {socketPending, fetchMessageRequest} from '../../actions';
 
-const mapDispatchToProps = (dispatch, {updateWsConnection, updateMessageList}) => {
-	return bindActionCreators({socketPending, fetchMessageRequest}, dispatch);
-};
+const mapDispatchToProps = (dispatch, {updateWsConnection, updateMessageList}) => (
+	bindActionCreators({socketPending, fetchMessageRequest}, dispatch)
+);
 
-const getInputsValues = (e) => {
-	return {
-		userName: e.target.elements.userName.value.trim(),
-		message: e.target.elements.message.value.trim(),
-	}
-};
+const getInputsValues = (e) => ({
+	userName: e.target.elements.userName.value.trim(),
+	message: e.target.elements.message.value.trim(),
+});
 
 const ChatWrapper = ({socketPending, fetchMessageRequest}) => {
 	let chatSection = React.createRef();

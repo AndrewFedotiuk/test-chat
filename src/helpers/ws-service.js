@@ -12,8 +12,8 @@ export function createSocketChannel(socket) {
 			console.log('connected');
 		};
 
-		const disconnectHandler = () => {
-			emit(socketConnectionFailure);
+		const disconnectHandler = (e) => {
+			emit(socketConnectionFailure(e));
 			console.log('disconnected');
 		};
 
