@@ -1,57 +1,24 @@
 const path = require('path');
-const webpack = require("webpack");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const merge = require('webpack-merge');
+const parts = require('./conf/parts');
 
-const htmlPlugin = new HtmlWebPackPlugin({
-	template: "./src/index.html",
-	filename: "./index.html"
-});
+const commonConfig = merge([
+	parts.entry(),
+	parts.loadJs(),
+]);
 
-module.exports = ({mode} = {mode: "production"}) => {
-	return {
-		mode,
-		entry: "./src/index.js",
-		output: {
-			path: path.resolve(__dirname, "dist"),
-			filename: "main.js"
-		},
-		devServer: {
-			contentBase: path.join(__dirname, 'dist'),
-			hot: true,
-			open: true
-		},
+const developmentConfig = merge([
+	parts.devServer(),
+	parts.loadCss()
+]);
 
-		module: {
-			rules: [
-				{
-					test: /\.(js|jsx)$/,
-					exclude: /node_modules/,
-					use: {
-						loader: 'babel-loader',
-					}
-				},
-				{
-					test: /\.s[ac]ss$/i,
-					use: [
-						{
-							loader: "style-loader"
-						},
-						{
-							loader: "css-loader",
-							options: {
-								sourceMap: true,
-							}
-						},
-						{
-							loader: "sass-loader"
-						}
-					]
-				},
-			]
-		},
-		plugins: [
-			htmlPlugin,
-			new webpack.HotModuleReplacementPlugin()
-		]
-	}
+const productionConfig = merge([
+	parts.clean('dist'),
+	parts.output(),
+	parts.extractCss()
+]);
+
+module.exports = (undefined, {mode}) => {
+	const config = mode === 'production' ? productionConfig : developmentConfig;
+	return merge([commonConfig, config, {mode: mode}]);
 };
