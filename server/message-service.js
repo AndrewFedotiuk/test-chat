@@ -5,7 +5,11 @@ const uuid = require('uuid');
 class Chat {
 	async getLastMessages() {
 		const messages = await Chat.parseModel();
-		return messages.slice(1).slice(-10);
+
+		if(messages.length >= 10){
+			return messages.slice(1).slice(-10)
+		}
+		return messages;
 	}
 
 	async addNewMessage({userName, message}) {
@@ -16,10 +20,10 @@ class Chat {
 			fs.writeFile(
 				path.join(__dirname, 'data', 'messages.json'),
 				JSON.stringify(messages),
-				(err)=>{
-					if(err){
+				(err) => {
+					if (err) {
 						reject(err);
-					}else{
+					} else {
 						resolve();
 					}
 				}
